@@ -3,12 +3,12 @@ import { useSudokuContext } from "../../context/SudokuContext";
 
 type GameSectionProps = {
   onClick: (indexOfArray: number) => void;
+  solvedArray: string[];
 };
 
 export const GameSection = (props: GameSectionProps) => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let { numberSelected, gameArray, fastMode, cellSelected, initArray } =
-    useSudokuContext();
+  let { gameArray, cellSelected, initArray } = useSudokuContext();
 
   const _isCellRelatedToSelectedCell = (row: number, column: number) => {
     if (cellSelected === row * 9 + column) {
@@ -45,32 +45,6 @@ export const GameSection = (props: GameSectionProps) => {
     });
   };
 
-  /**
-   * Cell Highlight Method 2: Highlight all cells with
-   * the same number as in the current cell.
-   */
-  // function _isCellSameAsSelectedCell(row: number, column: number) {
-  //   if (fastMode) {
-  //     if (numberSelected === gameArray[row * 9 + column]) {
-  //       return true;
-  //     }
-  //     return false;
-  //   } else {
-  //     if (cellSelected === row * 9 + column) {
-  //       return true;
-  //     }
-  //     if (gameArray[cellSelected] === "0") {
-  //       return false;
-  //     }
-  //     if (gameArray[cellSelected] === gameArray[row * 9 + column]) {
-  //       return true;
-  //     }
-  //   }
-  // }
-
-  /**
-   * Returns the classes for a cell related to the selected cell.
-   */
   const _selectedCell = (
     indexOfArray: number,
     value: string,
@@ -162,26 +136,13 @@ export const GameSection = (props: GameSectionProps) => {
                     return _selectedCell(indexOfArray, value, "highlight");
                   }
 
-                  if (fastMode) {
-                    if (
-                      numberSelected !== "0" &&
-                      //                      _isCellSameAsSelectedCell(row, column) &&
-                      _isCellRelatedToSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                  if (
+                    cellSelected !== -1 &&
+                    _isCellRelatedToSelectedCell(row, column)
+                  ) {
+                    return _selectedCell(indexOfArray, value, "");
                   } else {
-                    if (
-                      cellSelected !== -1 &&
-                      //                    _isCellSameAsSelectedCell(row, column) &&
-                      _isCellRelatedToSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                    return _unselectedCell(indexOfArray, value);
                   }
                 })}
               </tr>

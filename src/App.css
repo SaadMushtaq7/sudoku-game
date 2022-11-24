@@ -190,6 +190,11 @@ body {
   background-color: #BBDEFB;
 }
 
+.game__cell.game__cell--filled.wrong__value{
+  color: crimson;
+
+}
+
 .game__cell:nth-child(3n) {
   border-right: 2px solid var(--color-grey);
 }

@@ -10,8 +10,6 @@ type StatusSectionProps = {
   onClickUndo: () => void;
   onClickErase: () => void;
   onClickHint: () => void;
-  onClickMistakesMode: () => void;
-  onClickFastMode: () => void;
 };
 
 export const StatusSection = (props: StatusSectionProps) => {

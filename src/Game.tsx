@@ -8,26 +8,21 @@ import { useSudokuContext } from "./context/SudokuContext";
 
 export const Game: React.FC<{}> = () => {
   let {
-    numberSelected,
     setNumberSelected,
     gameArray,
     setGameArray,
     difficulty,
     setDifficulty,
     setTimeGameStarted,
-    fastMode,
-    setFastMode,
     cellSelected,
     setCellSelected,
     initArray,
     setInitArray,
     setWon,
   } = useSudokuContext();
-  let [mistakesMode, setMistakesMode] = useState<boolean>(true);
-  let [history, setHistory] = useState<string[][]>([]);
-  let [solvedArray, setSolvedArray] = useState<string[]>([]);
-  let [overlay, setOverlay] = useState<boolean>(false);
-
+  const [history, setHistory] = useState<string[][]>([]);
+  const [solvedArray, setSolvedArray] = useState<string[]>([]);
+  const [overlay, setOverlay] = useState<boolean>(false);
   const _createNewGame = (e?: React.ChangeEvent<HTMLSelectElement>) => {
     let [temporaryInitArray, temporarySolvedArray] = getUniqueSudoku(
       difficulty,
@@ -75,13 +70,13 @@ export const Game: React.FC<{}> = () => {
   };
 
   const _userFillCell = (index: number, value: string) => {
-    if (mistakesMode) {
-      if (value === solvedArray[index]) {
-        _fillCell(index, value);
-      } else {
-        // TODO: Flash - Mistakes not allowed in Mistakes Mode
-      }
+    if (value === solvedArray[index]) {
+      _fillCell(index, value);
+      let x = document.getElementsByTagName("td");
+      x[index].style.color = "#344860";
     } else {
+      let x = document.getElementsByTagName("td");
+      x[index].style.color = "crimson";
       _fillCell(index, value);
     }
   };
@@ -91,9 +86,6 @@ export const Game: React.FC<{}> = () => {
   };
 
   const onClickCell = (indexOfArray: number) => {
-    if (fastMode && numberSelected !== "0") {
-      _userFillCell(indexOfArray, numberSelected);
-    }
     setCellSelected(indexOfArray);
   };
 
@@ -103,11 +95,7 @@ export const Game: React.FC<{}> = () => {
   };
 
   const onClickNumber = (number: string) => {
-    if (fastMode) {
-      setNumberSelected(number);
-    } else if (cellSelected !== -1) {
-      _userFillCell(cellSelected, number);
-    }
+    _userFillCell(cellSelected, number);
   };
 
   const onClickUndo = () => {
@@ -131,18 +119,6 @@ export const Game: React.FC<{}> = () => {
     }
   };
 
-  const onClickMistakesMode = () => {
-    setMistakesMode(!mistakesMode);
-  };
-
-  const onClickFastMode = () => {
-    if (fastMode) {
-      setNumberSelected("0");
-    }
-    setCellSelected(-1);
-    setFastMode(!fastMode);
-  };
-
   const onClickOverlay = () => {
     setOverlay(false);
     _createNewGame();
@@ -164,6 +140,7 @@ export const Game: React.FC<{}> = () => {
         <div className="innercontainer">
           <GameSection
             onClick={(indexOfArray: number) => onClickCell(indexOfArray)}
+            solvedArray={solvedArray}
           />
           <StatusSection
             onClick={onClickNewGame}
@@ -171,8 +148,6 @@ export const Game: React.FC<{}> = () => {
             onClickUndo={onClickUndo}
             onClickErase={onClickErase}
             onClickHint={onClickHint}
-            onClickMistakesMode={onClickMistakesMode}
-            onClickFastMode={onClickFastMode}
           />
         </div>
       </div>
