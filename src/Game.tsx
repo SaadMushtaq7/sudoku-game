@@ -23,7 +23,7 @@ export const Game: React.FC<{}> = () => {
     setInitArray,
     setWon,
   } = useSudokuContext();
-  let [mistakesMode, setMistakesMode] = useState<boolean>(false);
+  let [mistakesMode, setMistakesMode] = useState<boolean>(true);
   let [history, setHistory] = useState<string[][]>([]);
   let [solvedArray, setSolvedArray] = useState<string[]>([]);
   let [overlay, setOverlay] = useState<boolean>(false);
