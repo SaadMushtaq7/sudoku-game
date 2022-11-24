@@ -73,7 +73,7 @@ export const Game: React.FC<{}> = () => {
     if (value === solvedArray[index]) {
       _fillCell(index, value);
       let x = document.getElementsByTagName("td");
-      x[index].style.color = "#344860";
+      x[index].style.color = "#7793b6";
     } else {
       let x = document.getElementsByTagName("td");
       x[index].style.color = "crimson";
