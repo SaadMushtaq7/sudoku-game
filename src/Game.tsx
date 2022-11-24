@@ -78,6 +78,8 @@ export const Game: React.FC<{}> = () => {
     if (mistakesMode) {
       if (value === solvedArray[index]) {
         _fillCell(index, value);
+      } else {
+        // TODO: Flash - Mistakes not allowed in Mistakes Mode
       }
     } else {
       _fillCell(index, value);

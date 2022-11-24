@@ -161,7 +161,7 @@ body {
 }
 
 .game__cell.game__cell--selected {
-  color: var(--color-grey);
+  color: #E2EBF3;
   background-color: #E2EBF3;
 }
 
@@ -172,11 +172,11 @@ body {
 
 .game__cell.game__cell--userfilled.game__cell--selected {
   color: var(--color-grey-light);
-  background-color: var(--color-orange);
+  background-color: #BBDEFB;
 }
 
 .game__cell.game__cell--highlightselected {
-  color: var(--color-grey);
+  color: #BBDEFB;
   background-color: #BBDEFB;
 }
 
@@ -420,7 +420,7 @@ input:checked + .status__action-fast-mode-slider:before {
 
 @media screen and (max-width: 670px) {
   .innercontainer {
-    max-width: 500px;
+    width: 100%;
     margin: 0 auto;
   }
   .game,
@@ -457,7 +457,7 @@ input:checked + .status__action-fast-mode-slider:before {
   
   }
   .status__number {
-    padding: 12px 25px;
+    padding: 5px;
   }
   .status__actions {
     top: 0;
